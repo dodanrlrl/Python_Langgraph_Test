@@ -1,0 +1,130 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>수집 결과</title>
+  <style>
+    :root {
+      --primary-color: #03c75a;
+      --bg-color: #f4f6f8;
+      --card-bg: #ffffff;
+      --text-main: #333333;
+      --text-sub: #666666;
+      --border-color: #e1e4e8;
+    }
+
+    * {
+      box-sizing: border-box;
+      margin: 0;
+      padding: 0;
+    }
+
+    body {
+      font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, "Helvetica Neue", Arial, sans-serif;
+      background-color: var(--bg-color);
+      color: var(--text-main);
+      display: flex;
+      justify-content: center;
+      align-items: flex-start;
+      min-height: 100vh;
+      padding: 40px 20px;
+    }
+
+    .container {
+      background-color: var(--card-bg);
+      width: 100%;
+      max-width: 680px;
+      padding: 36px;
+      border-radius: 16px;
+      box-shadow: 0 10px 25px rgba(0, 0, 0, 0.05);
+    }
+
+    .header {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      margin-bottom: 24px;
+      padding-bottom: 16px;
+      border-bottom: 2px solid var(--bg-color);
+    }
+
+    h1 {
+      font-size: 1.4rem;
+      font-weight: 700;
+      color: var(--text-main);
+    }
+
+    .count-badge {
+      background-color: rgba(3, 199, 90, 0.1);
+      color: var(--primary-color);
+      font-size: 0.85rem;
+      font-weight: 600;
+      padding: 6px 12px;
+      border-radius: 20px;
+    }
+
+    .result-list {
+      list-style: none;
+      display: flex;
+      flex-direction: column;
+      gap: 12px;
+    }
+
+    .result-item {
+      background-color: #fafbfc;
+      border: 1px solid var(--border-color);
+      border-radius: 10px;
+      padding: 16px 20px;
+      font-size: 0.95rem;
+      line-height: 1.6;
+      word-break: break-all;
+      transition: transform 0.15s, border-color 0.15s, box-shadow 0.15s;
+    }
+
+    .result-item:hover {
+      transform: translateY(-2px);
+      border-color: var(--primary-color);
+      box-shadow: 0 4px 12px rgba(0, 0, 0, 0.05);
+    }
+
+    /* 결과가 없을 때 예시 스타일 */
+    .empty-state {
+      text-align: center;
+      padding: 40px 0;
+      color: var(--text-sub);
+    }
+
+    .back-btn {
+      display: inline-block;
+      margin-top: 24px;
+      color: var(--text-sub);
+      text-decoration: none;
+      font-size: 0.9rem;
+      transition: color 0.2s;
+    }
+
+    .back-btn:hover {
+      color: var(--primary-color);
+    }
+  </style>
+</head>
+<body>
+  <div class="container">
+    <div class="header">
+      <h1>댓글 생성</h1>
+      <span class="count-badge">총 {{ results|length if results else 0 }}건</span>
+    </div>
+
+    <ul class="result-list">
+      {% for item in results %}
+        <li class="result-item">{{ item }}</li>
+      {% else %}
+        <li class="empty-state">처리된 결과가 없습니다.</li>
+      {% endfor %}
+    </ul>
+
+    <a href="javascript:history.back()" class="back-btn">← 이전으로 돌아가기</a>
+  </div>
+</body>
+</html>
